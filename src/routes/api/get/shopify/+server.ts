@@ -1,8 +1,7 @@
 import { error, type RequestHandler } from '@sveltejs/kit';
 import { SHOPIFY_API_ENDPOINT, SHOPIFY_STOREFONT_API_TOKEN } from '$env/static/private';
 
-export const GET: RequestHandler = async ({ fetch, request }) => {
-	console.log(request);
+export const GET: RequestHandler = async ({ fetch }) => {
 	const query = `
         query getShopDetails{
             shop {
@@ -19,7 +18,6 @@ export const GET: RequestHandler = async ({ fetch, request }) => {
             }
         }
     `;
-
 	const variables = {};
 
 	try {
@@ -45,7 +43,6 @@ export const GET: RequestHandler = async ({ fetch, request }) => {
 
 export const POST: RequestHandler = async ({ fetch, request }) => {
 	const { query, variables } = await request.json();
-
 	try {
 		const result = await fetch(SHOPIFY_API_ENDPOINT, {
 			method: 'POST',

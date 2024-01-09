@@ -9,9 +9,8 @@
 	onMount(async () => {
 		const s = await store.getShopifyStoreDetails();
 		console.log(s);
-		storeName = s.body.data.shop.name;
 	});
 </script>
 
-<h1>Welcome to {storeName} built with SvelteKit</h1>
+<h1>Welcome to SvelteKit</h1>
 <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
