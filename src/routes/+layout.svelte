@@ -86,24 +86,26 @@
 							<!-- Logo (lg+) -->
 							<div class="hidden lg:flex lg:flex-1 lg:items-center">
 								<a href="/">
-									<span class="sr-only">Your Company</span>
+									<span class="sr-only">{data.storefront.name}</span>
 									<img
 										class="h-8 w-auto"
 										src="https://tailwindui.com/img/logos/mark.svg?color=white"
-										alt=""
+										alt={data.storefront.name}
 									/>
 								</a>
 							</div>
 
 							<div class="hidden h-full lg:flex">
-								<!-- Flyout menus -->
 								<div class="inset-x-0 bottom-0 px-4">
 									<div class="flex h-full justify-center space-x-8">
-										<a href="/catalouge" class="flex items-center text-sm font-medium text-white">
-											Catalouge
-										</a>
+										{#each data.routes as { slug, title }}
+											<a href={slug} class="flex items-center text-sm font-medium text-white">
+												{title}
+											</a>
+										{/each}
 
-										<div class="flex">
+										<!-- Flyout menus -->
+										<!-- <div class="flex">
 											<div class="relative flex">
 												<button
 													type="button"
@@ -111,7 +113,7 @@
 													aria-expanded="false"
 												>
 													Women
-													<!-- Open: "bg-white", Closed: "" -->
+													Open: "bg-white", Closed: ""
 													<span
 														class="absolute inset-x-0 -bottom-px h-0.5 transition duration-200 ease-out"
 														aria-hidden="true"
@@ -128,14 +130,14 @@
 													aria-expanded="false"
 												>
 													Men
-													<!-- Open: "bg-white", Closed: "" -->
+													Open: "bg-white", Closed: ""
 													<span
 														class="absolute inset-x-0 -bottom-px h-0.5 transition duration-200 ease-out"
 														aria-hidden="true"
 													></span>
 												</button>
 											</div>
-										</div>
+										</div> -->
 
 										<!-- <a href="#" class="flex items-center text-sm font-medium text-white">Company</a>
 										<a href="#" class="flex items-center text-sm font-medium text-white">Stores</a> -->

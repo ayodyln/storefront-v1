@@ -1,16 +1,16 @@
-import { ShopifyStoreFront } from '$lib/shopify';
+import { ShopifyStoreFront, type StorefrontDetails } from '$lib/shopify';
 import type { LayoutLoad } from './$types';
 
 const store = new ShopifyStoreFront();
 
 export const load: LayoutLoad = async () => {
-	const storefront = await store.getShopifyStoreDetails();
+	const storefront = (await store.getShopifyStoreDetails()) as StorefrontDetails;
 
 	return {
 		storefront,
-		sections: [
-			{ slug: 'profile', title: 'Profile' },
-			{ slug: 'notifications', title: 'Notifications' }
+		routes: [
+			{ slug: '/profile', title: 'Profile' },
+			{ slug: '/notifications', title: 'Notifications' }
 		]
 	};
 };

@@ -6,7 +6,7 @@ class ShopifyStoreFront {
 	}
 
 	//? Get Shopify Store Details
-	async getShopifyStoreDetails() {
+	async getShopifyStoreDetails(): Promise<StorefrontDetails | unknown> {
 		try {
 			const shopify_result = await fetch(`/api/get/shopify`, {
 				method: 'POST',
@@ -17,16 +17,16 @@ class ShopifyStoreFront {
 					query: `
                         query getShopDetails{
                             shop {
-                            name
-                            primaryDomain{
-                                host
-                                url
-                            }
-                            paymentSettings{
-                                currencyCode
-                                acceptedCardBrands
-                                enabledPresentmentCurrencies
-                            }
+								name
+								primaryDomain{
+									host
+									url
+								}
+								paymentSettings{
+									currencyCode
+									acceptedCardBrands
+									enabledPresentmentCurrencies
+								}
                             }
                         }
                     `
@@ -41,4 +41,19 @@ class ShopifyStoreFront {
 	}
 }
 
+type StorefrontDetails = {
+	name: string;
+	primaryDomain: {
+		host: string;
+		url: string;
+	};
+	paymentSettings: {
+		currencyCode: string;
+		acceptedCardBrands: string;
+		enabledPresentmentCurrencies: string;
+	};
+};
+
 export { ShopifyStoreFront };
+
+export type { StorefrontDetails };
