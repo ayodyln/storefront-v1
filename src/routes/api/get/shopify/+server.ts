@@ -44,8 +44,7 @@ export const GET: RequestHandler = async ({ fetch, request }) => {
 };
 
 export const POST: RequestHandler = async ({ fetch, request }) => {
-	const { query } = await request.json();
-	const variables = {};
+	const { query, variables } = await request.json();
 
 	try {
 		const result = await fetch(SHOPIFY_API_ENDPOINT, {

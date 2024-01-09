@@ -1,13 +1,14 @@
 class ShopifyStoreFront {
 	input: string;
 
-	constructor(input: string) {
+	constructor(input: string = '') {
 		this.input = input;
 	}
 
+	//? Get Shopify Store Details
 	async getShopifyStoreDetails() {
 		try {
-			const shopify_result = await fetch(`http://localhost:5173/api/get/shopify`, {
+			const shopify_result = await fetch(`/api/get/shopify`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -31,10 +32,9 @@ class ShopifyStoreFront {
                     `
 				})
 			});
-			const result = await shopify_result.json();
-			return result;
+			return await shopify_result.json();
 		} catch (error) {
-			console.error(error);
+			return error;
 		}
 	}
 }
