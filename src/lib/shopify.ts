@@ -32,7 +32,9 @@ class ShopifyStoreFront {
                     `
 				})
 			});
-			return await shopify_result.json();
+
+			const data = await shopify_result.json();
+			return data.body.data.shop;
 		} catch (error) {
 			return error;
 		}
