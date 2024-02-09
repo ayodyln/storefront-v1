@@ -1,4 +1,3 @@
-import { error } from '@sveltejs/kit';
 import { SHOPIFY_API_ENDPOINT, SHOPIFY_STOREFONT_API_TOKEN } from '$env/static/private';
 
 export async function fetchShopify({ query, variables }: { query: string; variables: string }) {
@@ -11,11 +10,8 @@ export async function fetchShopify({ query, variables }: { query: string; variab
 			},
 			body: JSON.stringify({ query, variables })
 		});
-
-		const response = await sq.json();
-
-		return response;
-	} catch (e) {
-		error(500, JSON.stringify(e));
+		return await sq.json();
+	} catch (error) {
+		return error;
 	}
 }
