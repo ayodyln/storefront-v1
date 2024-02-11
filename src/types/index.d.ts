@@ -3,10 +3,10 @@ export type CreateAPIMethod = <TInput extends Record<string, string>, TOutput>(o
 	method: 'GET' | 'POST';
 }) => (input: TInput) => Promise<TOutput>;
 
-export type ShopifyResponse<TData, TError> = {
+export type ShopifyResponse<TData> = {
 	success: boolean;
-	data?: TData;
-	errors?: TError;
+	data: TData;
+	errors: ShopifyErrorResponse;
 };
 
 export type ShopifyError = {

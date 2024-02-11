@@ -1,5 +1,5 @@
 import { SHOPIFY_API_ENDPOINT } from '$env/static/private';
-import type { ShopifyResponse, ShopDetails, ShopifyErrorResponse } from '@/types';
+import type { ShopifyResponse, ShopDetails } from '@/types';
 import { shopifyAPIMethod } from '@/utils/Shopify';
 import { error, type RequestHandler } from '@sveltejs/kit';
 
@@ -10,7 +10,7 @@ import { error, type RequestHandler } from '@sveltejs/kit';
 
 const getShop = shopifyAPIMethod<
 	{ query: string; variables: string },
-	ShopifyResponse<ShopDetails, ShopifyErrorResponse>
+	ShopifyResponse<ShopDetails>
 >({
 	method: 'POST',
 	url: SHOPIFY_API_ENDPOINT
@@ -28,7 +28,7 @@ export const GET: RequestHandler = async () => {
 						}
 						paymentSettings{
 							currencyCode
-							acceptedCardBrands
+							accdeptedCardBrands
 							enabledPresentmentCurrencies
 						}
 					}
@@ -37,10 +37,15 @@ export const GET: RequestHandler = async () => {
 		variables: ''
 	});
 
+	console.log(response);
+
 	if (response.errors) {
-		error(400, {
-			message: JSON.stringify(response.errors)
-		});
+		return new Response(
+			JSON.stringify({
+				status: 404,
+				errors: response.errors
+			})
+		);
 	}
 
 	return new Response(

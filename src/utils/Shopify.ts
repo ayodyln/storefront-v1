@@ -17,16 +17,13 @@ export const post = async (url: string, input: Record<string, string>) => {
 	});
 };
 
-export const shopifyAPIMethod: CreateAPIMethod = (opts) => (input) => {
+export const shopifyAPIMethod: CreateAPIMethod = (opts) => async (input) => {
 	const method = opts.method === 'GET' ? get : post;
-	return method(opts.url, input)
-		.then((res) => {
-			if (!res.ok)
-				error(500, {
-					message: 'Failed API Call'
-				});
-
-			return res.json();
-		})
-		.then((data) => data);
+	const res = await method(opts.url, input);
+	if (!res.ok)
+		error(500, {
+			message: 'Failed API Call'
+		});
+	const data = await res.json();
+	return data;
 };
