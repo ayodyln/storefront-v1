@@ -1,38 +1,91 @@
 <script lang="ts">
 	import { toggleMenu } from '@components/Layout/func';
 	import { page } from '$app/stores';
-
-	// $: console.log($page);
+	import MobileMenu from './MobileMenu.svelte';
+	import { mobileMenuState } from '@/lib/stores';
+	$: console.log($page);
 </script>
 
-<!-- svelte-ignore a11y-no-redundant-roles -->
-<header
-	role="banner"
-	class="flex justify-between sticky top-0 p-4 bg-opacity-35 bg-gray-200 backdrop-blur-lg border"
->
-	<nav
-		role="navigation"
-		aria-label="Main Navigation"
-		class="flex justify-between items-center min-w-full"
-	>
-		<ul class="">
-			<li>
-				<a href="/" class="p-3 bg-black text-white rounded-lg">Home</a>
-			</li>
-		</ul>
+<header>
+	<nav class="border-b border-gray-200 bg-white">
+		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+			<div class="flex h-16 justify-between">
+				<div class="flex">
+					<div class="flex flex-shrink-0 items-center">
+						<a href="/">
+							<img
+								class="block h-8 w-auto lg:hidden"
+								src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+								alt="Your Company"
+							/>
+							<img
+								class="hidden h-8 w-auto lg:block"
+								src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+								alt="Your Company"
+							/>
+						</a>
+					</div>
+					<div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
+						<!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
+						<a
+							href="/collections"
+							class="border-indigo-500 text-gray-900 inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
+							aria-current="page">Collections</a
+						>
+					</div>
+				</div>
 
-		<div>
-			<button
-				class="bg-gray-300 hover:bg-opacity-80 min-w-11 min-h-11 flex justify-center items-center rounded"
-				on:click={toggleMenu}
-			>
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="fill-black w-4">
-					<!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-					<path
-						d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"
-					/>
-				</svg>
-			</button>
+				<div class="hidden sm:ml-6 sm:flex sm:items-center">
+					<!-- Profile dropdown -->
+					<div class="relative ml-3">
+						<div>
+							<!-- Cart -->
+						</div>
+					</div>
+				</div>
+
+				<div class="-mr-2 flex items-center sm:hidden">
+					<!-- Mobile menu button -->
+					<button
+						type="button"
+						class="relative inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+						aria-controls="mobile-menu"
+						aria-expanded="false"
+						on:click={toggleMenu}
+					>
+						<span class="absolute -inset-0.5"></span>
+						<span class="sr-only">Open main menu</span>
+						<!-- Menu open: "hidden", Menu closed: "block" -->
+						<svg
+							class="block h-6 w-6"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="1.5"
+							stroke="currentColor"
+							aria-hidden="true"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+							/>
+						</svg>
+						<!-- Menu open: "block", Menu closed: "hidden" -->
+						<svg
+							class="hidden h-6 w-6"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="1.5"
+							stroke="currentColor"
+							aria-hidden="true"
+						>
+							<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+						</svg>
+					</button>
+				</div>
+			</div>
 		</div>
+
+		<MobileMenu />
 	</nav>
 </header>

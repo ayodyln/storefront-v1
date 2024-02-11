@@ -19,33 +19,28 @@ const getShop = shopifyAPIMethod<
 export const GET: RequestHandler = async () => {
 	const response = await getShop({
 		query: `
-				query getShopDetails{
-					shop {
-						name
-						primaryDomain{
-							host
-							url
-						}
-						paymentSettings{
-							currencyCode
-							accdeptedCardBrands
-							enabledPresentmentCurrencies
-						}
+			query getShopDetails{
+				shop {
+					name
+					primaryDomain{
+						host
+						url
+					}
+					paymentSettings{
+						currencyCode
+						acceptedCardBrands
+						enabledPresentmentCurrencies
 					}
 				}
-			`,
+			}
+		`,
 		variables: ''
 	});
 
 	console.log(response);
 
 	if (response.errors) {
-		return new Response(
-			JSON.stringify({
-				status: 404,
-				errors: response.errors
-			})
-		);
+		error(400, 'Failed To fetch Shopify Info');
 	}
 
 	return new Response(
@@ -55,36 +50,6 @@ export const GET: RequestHandler = async () => {
 		})
 	);
 };
-
-// export const GET: RequestHandler = async () => {
-// 	const storefront = await fetchShopify({
-// 		query: `
-// 			query getShopDetails{
-// 				shop {
-// 					name
-// 					primaryDomain{
-// 						host
-// 						url
-// 					}
-// 					paymentSettings{
-// 						currencyCode
-// 						acceptedCardBrands
-// 						enabledPresentmentCurrencies
-// 					}
-// 				}
-// 			}
-// 		`,
-// 		variables: ''
-// 	});
-// 	console.log(storefront);
-
-// 	return new Response(
-// 		JSON.stringify({
-// 			status: 200,
-// 			storefront
-// 		})
-// 	);
-// };
 
 // export const POST: RequestHandler = async ({ request }) => {
 // 	const { query, variables } = await request.json();

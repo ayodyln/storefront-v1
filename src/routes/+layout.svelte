@@ -27,7 +27,6 @@
   ```
 -->
 
-<MobileMenu />
 <Navigation />
 <main id="Content">
 	<slot />
