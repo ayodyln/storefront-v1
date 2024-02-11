@@ -1,12 +1,15 @@
+import { error } from '@sveltejs/kit';
+
 export const load = async ({ fetch, locals }) => {
-	try {
-		const shopify_result = await fetch(`/api/shopify`);
-		const data = await shopify_result.json();
-		return {
-			...data,
-			user: locals.user
-		};
-	} catch (error) {
-		return error;
+	const shopify_result = await fetch(`/api/shopify/shop`);
+	const data = await shopify_result.json();
+
+	if (data.message) {
+		error(404, data);
 	}
+
+	return {
+		...data,
+		user: locals.user
+	};
 };
